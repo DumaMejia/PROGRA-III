@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Responsive</title>
+    <link rel="stylesheet" href="estilomenu.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <a href="#" class="enlace">
+            <img src="images/logo.png" alt="" class="logo">
+        </a>
+        <ul>
+            <li><a class="active" href="menu.html">Inicio</a></li>
+            <li><a href="#">Mis Datos</a></li>
+            <li><a href="pedidos.html">Mis Pedidos</a></li>
+            <li><a href="menu.html">Populares</a></li>
+            <li><a href="index.html">Cerrar Sesion</a></li>
+        </ul>
+    </nav>
+    <section class="form-register" >
+        <h4>Datos del Usuario</h4>
+        <input class="controls" type="text" name="nombres" id="nombres" placeholder="Nombre">
+        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Apellido">
+        <input class="controls" type="email" name="correo" id="correo" placeholder="Correo">
+        <input class="controls" type="password" name="correo" id="correo" placeholder="Contraseña">
+        <input class="controls" type="text" name="direccion" id="direccion" placeholder="direccion">
+        <input class="botons" type="submit" value="Actualizar">
+    </section>
+</body>
+</html>
