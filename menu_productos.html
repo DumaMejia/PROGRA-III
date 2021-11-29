@@ -39,7 +39,7 @@
                     <div class="contenido-hero">
                         <h2>Pide tu comida favorita</h2>
                         <p>Todos los platillos a $15</p>
-                        <form action="#" id="busqueda" method="post" class="formulario">
+                        <form action="#" id="busqueda" data-accion="nuevo" data-res="1" method="post" class="formulario">
                             <input class="u-full-width" type="text" 
                             placeholder="Que te gustaria comprar"
                             id="buscador"
@@ -237,137 +237,138 @@
         </div><!--.row-->
     </div>
 
-    <script src="js/app.js"></script>
     <main>
         <h1>¿que piensas acerca de este restaurante?</h1>
         <hr class="line">
-        <div class="container-comments">
-           
-            <div class="comments">
-               
-                <div class="photo-perfil">
-                    <img src="images/perfil.jpeg" alt="">
-                </div>
-                
-                <div class="info-comments">
-                   
-                    <div class="header">
-                        <h4>Duma Zelaya</h4>
-                        <h5>COMENTARIO POSITIVOS</h5>
-                    </div>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas reiciendis, hic voluptatibus maxime, delectus fugiat, aspernatur nisi saepe, temporibus nemo sequi sint pariatur ratione! Repellat tempora doloremque illo necessitatibus.</p>
-                    
-                    <div class="footer">
-                       
-                        <h5 class="request">Responder</h5>
-                        <label class="icon-heart"></label>
-                        
-                    </div>
-                </div>
+        <div class="coments">
+            <input type="text" placeholder="Ingrese algo" id="text">
+            <button id="button" data-accion="nuevo" data-idcomentario="0">></button> 
+        </div>       
+        <div class="container">
+            <div class="container__caja">
                 
             </div>
         </div>
-        <div class="container-comments-request">
-           
-            <div class="comments-request">
-               
-                <div class="photo-perfil-request">
-                    <img src="images/perfil2.jpeg" alt="">
-                </div>
-                
-                <div class="info-comments-request">
-                   
-                    <div class="header">
-                        <h4>Roberto Carlos</h4>
-                        <h5>COMENTARIO POSITIVO</h5>
-                    </div>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas reiciendis, hic voluptatibus maxime, delectus fugiat, aspernatur nisi saepe, temporibus nemo sequi sint pariatur ratione! Repellat tempora doloremque illo necessitatibus.</p>
-                    
-                    <div class="footer">
-                       
-                        <h5 class="request">Responder</h5>
-                        <label class="icon-heart"></label>
-                        
-                    </div>
-                </div>
-                
-            </div>
+        <div class="row g-2">
+            <div id="msgComentario" class="alert alert-success d-none" role="alert"></div>
         </div>
-        <div class="container-comments">
-           
-            <div class="comments">
-               
-                <div class="photo-perfil">
-                    <img src="images/perfil.jpeg" alt="">
-                </div>
-                
-                <div class="info-comments">
-                   
-                    <div class="header">
-                        <h4>Duma Zelaya</h4>
-                        <h5>COMENTARIO POSITIVO</h5>
-                    </div>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas reiciendis, hic voluptatibus maxime, delectus fugiat, aspernatur nisi saepe, temporibus nemo sequi sint pariatur ratione! Repellat tempora doloremque illo necessitatibus.</p>
-                    
-                    <div class="footer">
-                       
-                        <h5 class="request">Responder</h5>
-                        <label class="icon-heart"></label>
-                        
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        <div class="container-comments">
-           
-            <div class="comments">
-               
-                <div class="photo-perfil">
-                    <img src="images/perfil2.jpeg" alt="">
-                </div>
-                
-                <div class="info-comments">
-                   
-                    <div class="header">
-                        <h4>Roberto Carlos</h4>
-                        <h5>COMENTARIO: POSITIVO</h5>
-                    </div>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum voluptas reiciendis, hic voluptatibus maxime, delectus fugiat, aspernatur nisi saepe, temporibus nemo sequi sint pariatur ratione! Repellat tempora doloremque illo necessitatibus.</p>
-                    
-                    <div class="footer">
-                       
-                        <h5 class="request">Responder</h5>
-                        <label class="icon-heart"></label>
-                        
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </main>
-    
-    <div class="capa-data"></div>
-    <div class="container-data">
-        <div class="photo-input">
-           
-            <div class="perfil-photo">
-                <img src="images/perfil2.jpeg" id="photoSelect" alt="">
-            </div>
-            <input type="file" id="loadPhoto">
-            <input type="text" placeholder="Su nombre">
+
+        <script>
+
             
-        </div>
-        
-        <textarea class="mensaje" name="" id="" cols="30" rows="10" placeholder="Escriba su mensaje"></textarea>
-        
-        <button class="btn-comment">Comentar</button>
-    </div>
+
+window.onload = function cargarcomentarios(){
+    $.get("http://localhost:3001/consultar-comentarios",(respuesta, status)=>{
+                        if(respuesta.resp.length>0){
+
+                            respuesta.resp.forEach(comentarios => {
+                                
+                                let div = document.createElement("DIV");
+                                let div1 = document.createElement("DIV");
+                                let div3 = document.createElement("DIV");
+                                let div4 = document.createElement("DIV");
+                                let h4 = document.createElement("h4");
+                                let h5 = document.createElement("h5");
+                                let comentario = document.createElement("P");
+                                div.classList.add("container-comments");
+                                div1.classList.add("comments");
+                                div3.classList.add("info-comments");
+                                div4.classList.add("header");
+                                h4.classList.add("h4");
+                                h5.classList.add("h5")
+                                comentario.classList.add("p");
+                                comentario.textContent = comentarios.texto;
+                                div.appendChild(div1);
+                                div1.appendChild(div3);
+                                div3.appendChild(div4);
+                                div3.appendChild(comentario);
+                                div4.appendChild(h4);
+                                div4.appendChild(h5);
+                                h4.textContent="Duma Zelaya";
+                                h5.textContent="COMENTARIO POSITIVO";
+                                document.querySelector(".container__caja").appendChild(div);
+                    });
+                    }else{
+                    $("#msgComentario")
+                            .removeClass("alert-success")
+                            .addClass("alert-danger");
+                    }
+                    setTimeout(()=>{
+                        $("#msgComentario").addClass("d-none");
+                    },5000);
+                    }, "json");
+    }
+
+    document.getElementById("button").addEventListener("click",()=>{
+
+let accion = $("#button").data("accion"),
+id_comentario = $("#button").data("idcomentario"),
+texto = $("#text").val(),
+id_usuarios = "4";
+id_res = $("#busqueda").data("res"),
+tipo_comentario = "COMENTARIO POSITIVO",
+datos = {accion, id_comentario, texto, id_usuarios, id_res, tipo_comentario};
+$.post("http://localhost:3001/comentarios",JSON.stringify(datos), (respuesta, status)=>{
+
+    $("#msgComentario").removeClass("d-none").text(respuesta.resp);
+
+    if( respuesta.resp.indexOf("exito") >=0 ){
+    
+        $("#msgComentario")
+            .removeClass("alert-danger")
+            .addClass("alert-success");
+    } else {
+        $("#msgComentario")
+            .removeClass("alert-success")
+            .addClass("alert-danger");
+    }
+    setTimeout(()=>{
+        $("#msgComentario").addClass("d-none");
+    },5000);
+    }, "json");
+
+
+    agregarComentario(document.getElementById("text").value);
+    });
+            
+
+const agregarComentario = text =>{
+
+let div = document.createElement("DIV");
+let div1 = document.createElement("DIV");
+let div3 = document.createElement("DIV");
+let div4 = document.createElement("DIV");
+let h4 = document.createElement("h4");
+let h5 = document.createElement("h5");
+let comentario = document.createElement("P");
+div.classList.add("container-comments");
+div1.classList.add("comments");
+div3.classList.add("info-comments");
+div4.classList.add("header");
+h4.classList.add("h4");
+h5.classList.add("h5")
+comentario.classList.add("p");
+comentario.innerHTML = text;
+div.appendChild(div1);
+div1.appendChild(div3);
+div3.appendChild(div4);
+div3.appendChild(comentario);
+div4.appendChild(h4);
+div4.appendChild(h5);
+h4.textContent="Duma Zelaya";
+h5.textContent="COMENTARIO POSITIVO";
+document.querySelector(".container__caja").appendChild(div);
+document.getElementById("text").value = "";
+
+}
+               
+            
+
+            
+
+           
+    
+        </script>
     
     <script src="js/jquery.js"></script>
     <script src="js/script.js"></script>

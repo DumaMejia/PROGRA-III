@@ -37,13 +37,6 @@ main h1{
     font-size: 40px;
 }
 
-.line{
-    width: 500px;
-    height: 2px;
-    border-style: none;
-    background: #cecece;
-    margin-top: 20px;
-}
 
 .container-comments, 
 .container-comments-request{
@@ -223,6 +216,19 @@ main h1{
     background: black;
     opacity: 0.8;
     z-index: 10;
+}
+.coments{
+    width: 95%;
+    display: flex;
+    flex-wrap: nowrap;
+    
+}
+
+.coments input{
+    padding: 5px;
+    width: 90%;
+    font-size: 1.8em;
+    
 }
 
 

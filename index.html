@@ -8,10 +8,44 @@
   <body>
     <section class="form-login">
       <h5>Formulario Login</h5>
-      <input class="controls" type="text" name="usuario" value="" placeholder="Usuario">
-      <input class="controls" type="password" name="contrasena" value="" placeholder="Contraseña">
-      <input class="buttons" type="submit" name="" value="Ingresar">
-      <p><a href="#">¿Olvidastes tu Contraseña?</a></p>
+      <input class="controls" type="text" name="Correo" value="" id="correo" placeholder="Correo">
+      <input class="controls" type="password" name="contrasena" value="" id="contra" placeholder="Contraseña">
+      <a href="#"><input class="buttons"  type="submit" name="button" value="Ingresar" id="ingresar"></a>
+      <p><a href="registrar.html">¿no tienes cuenta? ¡crea una!</a></p>
     </section>
+    <div class="row g-2">
+      <div id="msgComentario" class="alert alert-success d-none" role="alert"></div>
+  </div>
+
+    <script>
+      document.getElementById("ingresar").addEventListener("click",()=>{
+
+        correo = document.getElementById("correo").value;
+        contra = document.getElementById("contra").value;
+
+        $.get("http://localhost:3001/consultar-usuario",(respuesta, status)=>{
+                        if(respuesta.resp.length>0){
+
+                            respuesta.resp.forEach(usuarios => {
+                              if(correo==usuarios.correo){
+                                if(contra==usuarios.contra){
+                                  location.href = "menu.html";
+                                }
+                              }
+                    });
+                    }else{
+                    $("#msgComentario")
+                            .removeClass("alert-success")
+                            .addClass("alert-danger");
+                    }
+                    setTimeout(()=>{
+                        $("#msgComentario").addClass("d-none");
+                    },5000);
+                    }, "json");
+      });
+    </script>
+
+<script src="js/jquery.js"></script>
+<script src="js/script.js"></script>
   </body>
 </html>

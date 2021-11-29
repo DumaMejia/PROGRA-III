@@ -8,17 +8,53 @@
   <title>Formulario Registro</title>
 </head>
 <body>
-  <section class="form-register">
+  <form class="form-register">
     <h4>Formulario Registro</h4>
     <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
     <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
     <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
-    <input class="controls" type="password" name="correo" id="correo" placeholder="Ingrese su Contraseña">
+    <input class="controls" type="password" name="contraseña" id="contra" placeholder="Ingrese su Contraseña">
     <input class="controls" type="text" name="direccion" id="direccion" placeholder="Direccion">
     <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
-    <input class="botons" type="submit" value="Registrar">
+    <button type="submit" class="botons" data-accion="nuevo" id="btregistrar" data-id_usuarios="0">Registrar</button>
+    <div class="row g-2">
+      <div id="msgRegistrar" class="alert alert-success d-none" role="alert"></div>
+  </div>
     <p><a href="index.html">¿Ya tengo Cuenta?</a></p>
-  </section>
+  </form>
 
+  <script>
+    document.getElementById("btregistrar").addEventListener("click",()=>{
+
+      let accion = "nuevo",
+      nombre = $("#nombres").val(),
+      apellido = $("#apellidos").val(),
+      correo = $("#correo").val(),
+      contra = $("#contra").val(),
+      direccion = $("#direccion").val(),
+      datos = {accion, nombre, apellido, correo, contra, direccion};
+      $.post("http://localhost:3001/usuario",JSON.stringify(datos), (respuesta, status)=>{
+
+          $("#msgRegistrar").removeClass("d-none").text(respuesta.resp);
+
+          if( respuesta.resp.indexOf("exito") >=0 ){
+          
+              $("#msgRegistrar")
+                  .removeClass("alert-danger")
+                  .addClass("alert-success");
+          } else {
+              $("#msgRegistrar")
+                  .removeClass("alert-success")
+                  .addClass("alert-danger");
+          }
+          setTimeout(()=>{
+              $("#msgRegistrar").addClass("d-none");
+          },5000);
+          }, "json");
+    });
+
+  </script>
+  <script src="js/jquery.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

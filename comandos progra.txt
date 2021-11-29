@@ -1,0 +1,159 @@
+$(document).ready(e=>{
+
+                $.get("http://localhost:3001/consultar-comentarios",(respuesta, status)=>{
+                        if(respuesta.resp.length>0){
+
+                            respuesta.resp.forEach(comentario => {
+                                
+                                let div = document.createElement("DIV");
+                                let div1 = document.createElement("DIV");
+                                let div3 = document.createElement("DIV");
+                                let div4 = document.createElement("DIV");
+                                let h4 = document.createElement("h4");
+                                let h5 = document.createElement("h5");
+                                let comentario = document.createElement("P");
+                                div.classList.add("container-comments");
+                                div1.classList.add("comments");
+                                div3.classList.add("info-comments");
+                                div4.classList.add("header");
+                                h4.classList.add("h4");
+                                h5.classList.add("h5")
+                                comentario.classList.add("p");
+                                comentario.innerHTML = comentario.comentario;
+                                div.appendChild(div1);
+                                div1.appendChild(div3);
+                                div3.appendChild(div4);
+                                div3.appendChild(comentario);
+                                div4.appendChild(h4);
+                                div4.appendChild(h5);
+                                h4.textContent="Duma Zelaya";
+                                h5.textContent="COMENTARIO POSITIVO";
+                                document.querySelector(".container__caja").appendChild(div);
+                    });
+                    }else{
+                    $("#msgComentario")
+                            .removeClass("alert-success")
+                            .addClass("alert-danger");
+                    }
+                    setTimeout(()=>{
+                        $("#msgComentario").addClass("d-none");
+                    },5000);
+                    }, "json");
+                        
+                });
+
+
+
+
+
+
+ document.getElementById("button").addEventListener("click",()=>{
+
+                let accion = $("#button").data("accion"),
+                id_comentario = $("#button").data("idcomentario"),
+                texto = $("#text").val(),
+                id_usuarios = "4";
+                id_res = $("#busqueda").data("res"),
+                tipo_comentario = "COMENTARIO POSITIVO",
+                datos = {accion, id_comentario, texto, id_usuarios, id_res, tipo_comentario};
+                $.post("http://localhost:3001/comentarios",JSON.stringify(datos), (respuesta, status)=>{
+
+                    $("#msgComentario").removeClass("d-none").text(respuesta.resp);
+
+                    if( respuesta.resp.indexOf("exito") >=0 ){
+                    
+                        $("#msgComentario")
+                            .removeClass("alert-danger")
+                            .addClass("alert-success");
+                    } else {
+                        $("#msgComentario")
+                            .removeClass("alert-success")
+                            .addClass("alert-danger");
+                    }
+                    setTimeout(()=>{
+                        $("#msgComentario").addClass("d-none");
+                    },5000);
+                    }, "json");
+
+
+                    agregarComentario(document.getElementById("text").value);
+                    });
+                            
+    
+        const agregarComentario = text =>{
+        
+        let div = document.createElement("DIV");
+        let div1 = document.createElement("DIV");
+        let div3 = document.createElement("DIV");
+        let div4 = document.createElement("DIV");
+        let h4 = document.createElement("h4");
+        let h5 = document.createElement("h5");
+        let comentario = document.createElement("P");
+        div.classList.add("container-comments");
+        div1.classList.add("comments");
+        div3.classList.add("info-comments");
+        div4.classList.add("header");
+        h4.classList.add("h4");
+        h5.classList.add("h5")
+        comentario.classList.add("p");
+        comentario.innerHTML = text;
+        div.appendChild(div1);
+        div1.appendChild(div3);
+        div3.appendChild(div4);
+        div3.appendChild(comentario);
+        div4.appendChild(h4);
+        div4.appendChild(h5);
+        h4.textContent="Duma Zelaya";
+        h5.textContent="COMENTARIO POSITIVO";
+        document.querySelector(".container__caja").appendChild(div);
+        document.getElementById("text").value = "";
+     
+        }
+
+
+
+
+ let accion = $("#btregistrar").data("accion"),
+      id_usuarios = $("#btregistrar").data("id_usuarios")
+      nombre = $("#nombres").val(),
+      apellido = $("#apellidos").val(),
+      correo = $("#correo").val(),
+      contra = $("#contra").val(),
+      direccion = $("#direccion").val(),
+      datos = {accion, id_usuarios, nombre, apellido, correo, contra, direccion};
+      $.post("http://localhost:3001/usuario",JSON.stringify(datos), (respuesta, status)=>{
+
+          $("#msgRegistrar").removeClass("d-none").text(respuesta.resp);
+
+          if( respuesta.resp.indexOf("exito") >=0 ){
+          
+              $("#msgRegistrar")
+                  .removeClass("alert-danger")
+                  .addClass("alert-success");
+          } else {
+              $("#msgRegistrar")
+                  .removeClass("alert-success")
+                  .addClass("alert-danger");
+          }
+          setTimeout(()=>{
+              $("#msgRegistrar").addClass("d-none");
+          },5000);
+          }, "json");
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
