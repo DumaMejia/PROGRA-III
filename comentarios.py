@@ -10,8 +10,8 @@ class comentarios:
     def administrar_comentario(self, contenido):
         try:
             if contenido["accion"]=="nuevo":
-                sql = "INSERT INTO comentario (texto, id_usuarios, id_res, tipo_comentario) VALUES (%s, %s, %s, %s)"
-                val = (contenido["texto"], contenido["id_usuarios"], contenido["id_res"], contenido["tipo_comentario"])
+                sql = "INSERT INTO comentario (texto, id_usuarios, id_res, tipo_comentario, nombre) VALUES (%s, %s, %s, %s, %s)"
+                val = (contenido["texto"], contenido["id_usuarios"], contenido["id_res"], contenido["tipo_comentario"], contenido["nombre"])
 
             elif contenido["accion"]=="modificar":
                 sql = "UPDATE alumnos SET codigo=%s, nombre=%s, telefono=%s WHERE idAlumno=%s"

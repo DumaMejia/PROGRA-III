@@ -231,6 +231,24 @@ main h1{
     
 }
 
+.my-alert{
+    border: 1px solid green;
+    border-radius: 5px;
+    width: 95%;
+    color: white;
+    padding: 15px;
+    background-color: green;
+} 
+
+.bt-salir{
+    position: absolute;
+    right: 50px;
+    transform: translateY(-85%);
+
+}
+
+
+
 
 
 

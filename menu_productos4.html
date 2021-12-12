@@ -65,7 +65,7 @@
                     <img src="img/pizza.jpg" class="u-full-width" id="imagen" data-imagen="img/pizza.jpg">
                     <div class="info-card">
                         <h4 id="nombre" data-nombre="pizza con queso"> Pizza con queso</h4>
-                        <p id="descripcion" data-descripcion="Pizza con queso mozzarella"> Pizza con queso mozzarella</p>
+                        <p id="descripcion" data-descripcion="PROMO"> Pizza con queso mozzarella</p>
                         <img src="img/estrellas.png" >
                         <p id="precio" class="precio" data-precio="$15">$200 <span class="u-pull-right">$15</span></p>
                         <button href="#" 
@@ -183,7 +183,7 @@ window.onload = function cargarcomentarios(){
                         if(respuesta.resp.length>0){
 
                             respuesta.resp.forEach(comentarios => {
-                                if(comentarios.id_res == 1){
+                                
                                 let div = document.createElement("DIV");
                                 let div1 = document.createElement("DIV");
                                 let div3 = document.createElement("DIV");
@@ -208,7 +208,6 @@ window.onload = function cargarcomentarios(){
                                 h4.textContent= comentarios.nombre;
                                 h5.textContent="COMENTARIO POSITIVO";
                                 document.querySelector(".container__caja").appendChild(div);
-                                }
                     });
                     }else{
                     $("#msgComentario")

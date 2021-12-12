@@ -8,11 +8,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import usuarios
 import comentarios
+import pedidos
+import detalles
 
 import math
 
 usuarios = usuarios.usuarios()
 comentarios = comentarios.comentarios()
+pedidos = pedidos.pedidos()
+detalles = detalles.detalles()
 
 #Duma Roberto Zelaya Mejia 
 #Roberto Carlos Hernandez Melendez
@@ -35,6 +39,18 @@ class servidorBasico(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.end_headers()
             self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))
+
+         elif self.path == '/consultar-pedidos':
+            resp = pedidos.consultar_pedidos()
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))
+
+         elif self.path == '/consultar-detalle':
+            resp = detalles.consultar_detalle()
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))
         
         
          else:
@@ -52,6 +68,8 @@ class servidorBasico(SimpleHTTPRequestHandler):
             resp = usuarios.administrar_usuarios(data)
         elif self.path == '/comentarios':
             resp = comentarios.administrar_comentario(data)
+        elif self.path == '/pedidos':
+            resp = pedidos.administrar_pedidos(data)
         self.send_response(200)
         self.end_headers()
         self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))

@@ -15,8 +15,8 @@ class usuarios:
                 val = (contenido["nombre"], contenido["apellido"], contenido["correo"], contenido["contra"], contenido["direccion"])
 
             elif contenido["accion"]=="modificar":
-                sql = "UPDATE alumnos SET codigo=%s, nombre=%s, telefono=%s WHERE idAlumno=%s"
-                val = (contenido["codigo"], contenido["nombre"], contenido["telefono"], contenido["idAlumno"])
+                sql = "UPDATE usuario SET nombre=%s, apellido=%s, correo=%s, contra=%s, direccion=%s WHERE id_usuarios=%s"
+                val = (contenido["nombre"], contenido["apellido"], contenido["correo"], contenido["contra"], contenido["direccion"], contenido["id_usuarios"])
 
             elif contenido["accion"]=="eliminar":
                 sql = "DELETE FROM alumnos WHERE idAlumno=%s"

@@ -30,9 +30,67 @@
         <input class="controls" type="text" name="nombres" id="nombres" placeholder="Nombre">
         <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Apellido">
         <input class="controls" type="email" name="correo" id="correo" placeholder="Correo">
-        <input class="controls" type="password" name="correo" id="correo" placeholder="Contraseña">
+        <input class="controls" type="text" name="correo" id="contra" placeholder="Contraseña">
         <input class="controls" type="text" name="direccion" id="direccion" placeholder="direccion">
-        <input class="botons" type="submit" value="Actualizar">
+        <input class="botons" type="submit" value="Actualizar" id="button" data-accion="modificar">
     </section>
+    <script>
+        window.onload = function cargarcomentarios(){
+    $.get("http://localhost:3001/consultar-usuario",(respuesta, status)=>{
+                        if(respuesta.resp.length>0){
+
+                            respuesta.resp.forEach(usuarios => {
+                                if(usuarios.id_usuarios==localStorage.getItem("id")){
+                                    document.getElementById("nombres").value = usuarios.nombre;
+                                    document.getElementById("apellidos").value = usuarios.apellido;
+                                    document.getElementById("correo").value = usuarios.correo;
+                                    document.getElementById("contra").value = usuarios.contra;
+                                    document.getElementById("direccion").value = usuarios.direccion;
+                                }
+                                
+                                
+                    });
+                    }else{
+                    $("#msgComentario")
+                            .removeClass("alert-success")
+                            .addClass("alert-danger");
+                    }
+                    setTimeout(()=>{
+                        $("#msgComentario").addClass("d-none");
+                    },5000);
+                    }, "json");
+    }
+    document.getElementById("button").addEventListener("click",()=>{
+    
+        let accion = $("#button").data("accion"),
+        id_usuarios = localStorage.getItem("id");
+        nombre = $("#nombres").val(),
+        apellido = $("#apellidos").val();
+        correo = $("#correo").val(),
+        contra = $("#contra").val(),
+        direccion = $("#direccion").val();
+        datos = {accion, nombre, apellido, correo, contra, direccion, id_usuarios};
+        $.post("http://localhost:3001/usuario",JSON.stringify(datos), (respuesta, status)=>{
+
+            $("#msgComentario").removeClass("d-none").text(respuesta.resp);
+
+            if( respuesta.resp.indexOf("exito") >=0 ){
+            
+                $("#msgComentario")
+                    .removeClass("alert-danger")
+                    .addClass("alert-success");
+            } else {
+                $("#msgComentario")
+                    .removeClass("alert-success")
+                    .addClass("alert-danger");
+            }
+            setTimeout(()=>{
+                $("#msgComentario").addClass("d-none");
+            },5000);
+            }, "json");
+            });
+    </script>
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

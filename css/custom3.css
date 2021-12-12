@@ -60,7 +60,7 @@ li a.active, li a:hover{
 
 
 #hero {
-    background-image: url(../img/hero.jpg);
+    background-image: url(../images/img1.0.jpg);
     position: relative;
     z-index: 0;
     background-repeat: no-repeat;

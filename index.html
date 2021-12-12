@@ -30,6 +30,8 @@
                               if(correo==usuarios.correo){
                                 if(contra==usuarios.contra){
                                   location.href = "menu.html";
+                                  localStorage.setItem("textvalue", usuarios.nombre);
+                                  localStorage.setItem("id", usuarios.id_usuarios);
                                 }
                               }
                     });

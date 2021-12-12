@@ -2,16 +2,15 @@ import conexion
 
 db = conexion.conexion()
 
-
-class pedidos:
-    def consultar_pedidos(self):
-        sql = "SELECT * FROM pedidos"
+class detalles:
+    def consultar_detalle(self):
+        sql = "SELECT * FROM detalle_comida"
         return db.consultar(sql)
 
-    def administrar_pedidos(self, contenido):
+    def administrar_detalle(self, contenido):
         try:
             if contenido["accion"]=="nuevo":
-                sql = "INSERT INTO pedidos (id_usuarios, id_res, img_url, nombre, descripcion, precio) VALUES (%s, %s, %s, %s, %s, %s)"
+                sql = "INSERT INTO  (id_usuarios, id_res, img_url, nombre, descripcion, precio) VALUES (%s, %s, %s, %s, %s, %s)"
                 val = (contenido["id_usuarios"], contenido["id_res"], contenido["img_url"], contenido["nombre"], contenido["descripcion"], contenido["precio"])
 
             elif contenido["accion"]=="modificar":

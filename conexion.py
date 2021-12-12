@@ -23,6 +23,6 @@ class conexion:
             cursor = self.conexion.cursor()
             cursor.execute(sql, val)
             self.conexion.commit()
-            return "Registro procesado con exito"
+            return "Envio con exito"
         except Exception as e:
             return str(e)
