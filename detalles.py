@@ -1,5 +1,9 @@
 import conexion
 
+#Duma Roberto Zelaya Mejia 
+#Roberto Carlos Hernandez Melendez
+#Jose Roberto Del Rio Maravilla
+
 db = conexion.conexion()
 
 class detalles:

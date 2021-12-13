@@ -1,5 +1,9 @@
 import mysql.connector 
 
+#Duma Roberto Zelaya Mejia 
+#Roberto Carlos Hernandez Melendez
+#Jose Roberto Del Rio Maravilla
+
 class conexion:
     def __init__(self):
         self.conexion = mysql.connector.connect(user='root', password='duma',

@@ -2,6 +2,9 @@ import conexion
 
 db = conexion.conexion()
 
+#Duma Roberto Zelaya Mejia 
+#Roberto Carlos Hernandez Melendez
+#Jose Roberto Del Rio Maravilla
 
 class usuarios:
     def consultar_usuarios(self):
