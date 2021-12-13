@@ -21,19 +21,23 @@
             <li><a class="active" href="menu.html">Inicio</a></li>
             <li><a href="#">Mis Datos</a></li>
             <li><a href="pedidos.html">Mis Pedidos</a></li>
-            <li><a href="menu.html">Populares</a></li>
             <li><a href="index.html">Cerrar Sesion</a></li>
         </ul>
     </nav>
-    <section class="form-register" >
-        <h4>Datos del Usuario</h4>
-        <input class="controls" type="text" name="nombres" id="nombres" placeholder="Nombre">
-        <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Apellido">
-        <input class="controls" type="email" name="correo" id="correo" placeholder="Correo">
-        <input class="controls" type="text" name="correo" id="contra" placeholder="Contraseña">
-        <input class="controls" type="text" name="direccion" id="direccion" placeholder="direccion">
+    <form class="form-register" >
+        <p>DATOS DEL USUARIO</p>
+        <p>NOMBRES</p>
+        <input class="controls" required type="text" name="nombres" id="nombres" placeholder="Nombre">
+        <p>APELLIDOS</p>
+        <input class="controls" required type="text" name="apellidos" id="apellidos" placeholder="Apellido">
+        <p>CORREO</p>
+        <input class="controls" type="email" name="correo" id="correo" disabled="" placeholder="Correo">
+        <p>CONTRASEÑA</p>
+        <input class="controls" required type="text" name="correo" id="contra" placeholder="Contraseña">
+        <p>DIRECCCION</p>
+        <input class="controls" required type="text" name="direccion" id="direccion" placeholder="direccion">
         <input class="botons" type="submit" value="Actualizar" id="button" data-accion="modificar">
-    </section>
+    </form>
     <script>
         window.onload = function cargarcomentarios(){
     $.get("http://localhost:3001/consultar-usuario",(respuesta, status)=>{
@@ -61,7 +65,8 @@
                     }, "json");
     }
     document.getElementById("button").addEventListener("click",()=>{
-    
+        if ($("#nombres").val()=="" ||$("#apellidos").val()=="" || $("#contra").val() == "" || $("#direccion").val()== "" ) {
+    }else{
         let accion = $("#button").data("accion"),
         id_usuarios = localStorage.getItem("id");
         nombre = $("#nombres").val(),
@@ -71,23 +76,9 @@
         direccion = $("#direccion").val();
         datos = {accion, nombre, apellido, correo, contra, direccion, id_usuarios};
         $.post("http://localhost:3001/usuario",JSON.stringify(datos), (respuesta, status)=>{
-
-            $("#msgComentario").removeClass("d-none").text(respuesta.resp);
-
-            if( respuesta.resp.indexOf("exito") >=0 ){
-            
-                $("#msgComentario")
-                    .removeClass("alert-danger")
-                    .addClass("alert-success");
-            } else {
-                $("#msgComentario")
-                    .removeClass("alert-success")
-                    .addClass("alert-danger");
-            }
-            setTimeout(()=>{
-                $("#msgComentario").addClass("d-none");
-            },5000);
+            alert("se guardaron los cambios");
             }, "json");
+        }
             });
     </script>
     <script src="js/jquery.js"></script>

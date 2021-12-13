@@ -25,7 +25,6 @@
             <li><a class="active" href="menu.html">Inicio</a></li>
             <li><a href="datos.html">Tu Direccion</a></li>
             <li><a href="#">Mis Pedidos</a></li>
-            <li><a href="menu.html">Populares</a></li>
             <li><a href="index.html">Cerrar Sesion</a></li>
         </ul>
     </nav>
@@ -56,6 +55,7 @@
                                 let p1 = document.createElement("P")
                                 let h4 = document.createElement("h4");
                                 let P2 = document.createElement("P");
+                                let P3 = document.createElement("P");
                                 div.classList.add("four-columns");
                                 div1.classList.add("card");
                                 div2.classList.add("row");
@@ -63,11 +63,13 @@
                                 h4.classList.add("h4");
                                 p1.classList.add("p");
                                 P2.classList.add("p");
+                                P3.classList.add("p");
                                 P2.setAttribute("class", "precio")
                                 img.setAttribute("src", pedidos.img_url);
                                 img.setAttribute("class", "u-full-width");
                                 p1.textContent = pedidos.descripcion;
                                 P2.textContent = pedidos.precio;
+                                P3.textContent = localStorage.getItem("dir");
                                 h4.textContent = pedidos.nombre;
                                 div2.appendChild(div);
                                 div.appendChild(div1);
@@ -76,6 +78,7 @@
                                 div3.appendChild(h4);
                                 div3.appendChild(p1);
                                 div3.appendChild(P2);
+                                div3.appendChild(P3)
                                 document.querySelector(".container").appendChild(div2);
                                 }
                     });

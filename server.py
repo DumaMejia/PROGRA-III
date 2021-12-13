@@ -18,9 +18,29 @@ comentarios = comentarios.comentarios()
 pedidos = pedidos.pedidos()
 detalles = detalles.detalles()
 
+
+
 #Duma Roberto Zelaya Mejia 
 #Roberto Carlos Hernandez Melendez
 #Jose Roberto Del Rio Maravilla
+
+#obtencion de los datoas de entrenamiento
+temperaturas = pd.read_csv("dataset.csv", sep=";")
+sns.scatterplot(temperaturas["comentario"], temperaturas["tipo"])
+
+#datos de entrada y salida
+celsius = temperaturas["comentario"]
+fahrenheit = temperaturas['tipo']
+
+#modelo de entrenamiento
+modelo = tf.keras.Sequential()
+modelo.add(tf.keras.layers.Dense(units=1, input_shape=[1]))
+
+#compilar el modelo
+modelo.compile(optimizer=tf.keras.optimizers.Adam(1),loss='mean_squared_error')
+
+#entrenamiento del modelo
+epocas = modelo.fit(celsius, fahrenheit, epochs=100)
 
 class servidorBasico(SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -69,7 +89,27 @@ class servidorBasico(SimpleHTTPRequestHandler):
         elif self.path == '/comentarios':
             resp = comentarios.administrar_comentario(data)
         elif self.path == '/pedidos':
-            resp = pedidos.administrar_pedidos(data)
+            resp = pedidos.administrar_pedidos(data)   
+        elif self.path == '/prediccion':
+            #Obtener datos de la peticion y limpiar los datos
+            content_length = int(self.headers['Content-Length'])
+            data = self.rfile.read(content_length)
+            data = data.decode()
+            data = parse.unquote(data)
+            data = float(data)
+
+            #Realizar y obtener la prediccion
+            prediction_values = modelo.predict([data])
+            print('Prediccion final: ', prediction_values)
+            prediction_values = str(prediction_values[0][0])
+
+            #Regresar respuesta a la peticion HTTP
+            self.send_response(200)
+            #Evitar problemas con CORS
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(prediction_values.encode())
+            
         self.send_response(200)
         self.end_headers()
         self.wfile.write(json.dumps(dict(resp=resp)).encode('utf-8'))

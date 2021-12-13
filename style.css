@@ -20,8 +20,8 @@ body {
   box-shadow: 7px 13px 37px #000;
 }
 
-.form-register h4 {
-  font-size: 22px;
+.form-register p {
+  font-size: 50px;
   margin-bottom: 20px;
 }
 
@@ -62,4 +62,20 @@ body {
   color: white;
   margin: 16px 0;
   font-size: 16px;
+}
+
+.my-alert{
+  border: 1px solid green;
+  border-radius: 5px;
+  width: 95%;
+  color: white;
+  padding: 15px;
+  background-color: green;
+} 
+
+.bt-salir{
+  position: absolute;
+  right: 50px;
+  transform: translateY(-85%);
+
 }

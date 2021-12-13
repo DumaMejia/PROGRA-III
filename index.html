@@ -6,18 +6,19 @@
     <link rel="stylesheet" href="style1.css">
   </head>
   <body>
-    <section class="form-login">
+    <form class="form-login">
       <h5>Formulario Login</h5>
-      <input class="controls" type="text" name="Correo" value="" id="correo" placeholder="Correo">
-      <input class="controls" type="password" name="contrasena" value="" id="contra" placeholder="Contraseña">
+      <input class="controls" required type="text" name="Correo" value="" id="correo" placeholder="Correo">
+      <input class="controls" required type="password" name="contrasena" value="" id="contra" placeholder="Contraseña">
       <a href="#"><input class="buttons"  type="submit" name="button" value="Ingresar" id="ingresar"></a>
       <p><a href="registrar.html">¿no tienes cuenta? ¡crea una!</a></p>
-    </section>
+    </form>
     <div class="row g-2">
       <div id="msgComentario" class="alert alert-success d-none" role="alert"></div>
   </div>
 
     <script>
+      mensaje= "Correo o contraseña incorrecta";
       document.getElementById("ingresar").addEventListener("click",()=>{
 
         correo = document.getElementById("correo").value;
@@ -29,21 +30,18 @@
                             respuesta.resp.forEach(usuarios => {
                               if(correo==usuarios.correo){
                                 if(contra==usuarios.contra){
+                                  mensaje = "Bienvenido";
                                   location.href = "menu.html";
                                   localStorage.setItem("textvalue", usuarios.nombre);
                                   localStorage.setItem("id", usuarios.id_usuarios);
+                                  localStorage.setItem("dir", usuarios.direccion);
                                 }
-                              }
+                              }    
                     });
-                    }else{
-                    $("#msgComentario")
-                            .removeClass("alert-success")
-                            .addClass("alert-danger");
+                    alert(mensaje);
                     }
-                    setTimeout(()=>{
-                        $("#msgComentario").addClass("d-none");
-                    },5000);
                     }, "json");
+                    
       });
     </script>
 

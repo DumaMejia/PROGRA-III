@@ -10,23 +10,22 @@
 <body>
   <form class="form-register">
     <h4>Formulario Registro</h4>
-    <input class="controls" pattern="^([SM|US]){2}([IS|LI|LA]){2}[0-9]{6}" required placeholder="Codigo" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
-    <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
-    <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
-    <input class="controls" type="password" name="contraseña" id="contra" placeholder="Ingrese su Contraseña">
-    <input class="controls" type="text" name="direccion" id="direccion" placeholder="Direccion">
+    <input pattern="[A-zÑñáéíóú ]{6,75}" class="controls"  required  type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
+    <input pattern="[A-zÑñáéíóú ]{6,75}" class="controls" required type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
+    <input class="controls" required type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
+    <input class="controls" required type="password" name="contraseña" id="contra" placeholder="Ingrese su Contraseña">
+    <input class="controls" required type="text" name="direccion" id="direccion" placeholder="Direccion">
     <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
-    <button type="submit" class="botons" data-accion="nuevo" id="btregistrar" data-id_usuarios="0">Registrar</button>
-    <div class="row g-2">
-      <div id="msgRegistrar" class="alert alert-success d-none" role="alert"></div>
-  </div>
+    <button type="submit" class="botons" data-accion="nuevo" id="btregistrar" data-id_usuarios="0">Registrar</button> 
     <p><a href="index.html">¿Ya tengo Cuenta?</a></p>
   </form>
 
   <script>
     document.getElementById("btregistrar").addEventListener("click",()=>{
-
-      let accion = "nuevo",
+      if ($("#nombres").val()=="" ||$("#apellidos").val()=="" || $("#correo").val() == "" || $("#contra").val() == "" || $("#direccion").val()== "" ) {
+        
+      }else{
+        let accion = "nuevo",
       nombre = $("#nombres").val(),
       apellido = $("#apellidos").val(),
       correo = $("#correo").val(),
@@ -34,23 +33,9 @@
       direccion = $("#direccion").val(),
       datos = {accion, nombre, apellido, correo, contra, direccion};
       $.post("http://localhost:3001/usuario",JSON.stringify(datos), (respuesta, status)=>{
-
-          $("#msgRegistrar").removeClass("d-none").text(respuesta.resp);
-
-          if( respuesta.resp.indexOf("exito") >=0 ){
-          
-              $("#msgRegistrar")
-                  .removeClass("alert-danger")
-                  .addClass("alert-success");
-          } else {
-              $("#msgRegistrar")
-                  .removeClass("alert-success")
-                  .addClass("alert-danger");
-          }
-          setTimeout(()=>{
-              $("#msgRegistrar").addClass("d-none");
-          },5000);
           }, "json");
+          alert("usuario resgistrado exitosamente");
+      }
     });
 
   </script>
